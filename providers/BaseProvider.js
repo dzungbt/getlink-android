@@ -2,15 +2,22 @@
  * Abstract Class BaseProvider.
  *
  * @class BaseProvider
- */
+*/
 class BaseProvider {
-  constructor() {}
+  constructor() { }
+  async getRedisToken() {}
 
-  async checkTokenRequest() {}
+  async setRedisToken() {}
 
-  async getTokenRequest() {}
+  async renewToken(){}
+  
+  async checkTokenRequest() { }
 
-  async getM3u8ById() {}
+  async getTokenRequest() { }
+
+  async getLink(channelId) {}
+
+  async getM3u8Request(id) { }
 }
 
 module.exports = {
