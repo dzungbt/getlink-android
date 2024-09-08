@@ -1,5 +1,5 @@
 const { BaseProvider } = require("../BaseProvider");
-const {Redis} = require("../../src/redis/redis")
+const { Redis } = require("../../src/redis/redis")
 const axios = require('axios')
 /**
  * TV360.
@@ -41,18 +41,18 @@ class TV360 extends BaseProvider {
     super();
   }
 
-  async getRedisToken(){
+  async getRedisToken() {
     const client = new Redis();
     const val = await client.get("TV360_ACCESS_TOKEN");
     client.clearClient();
-    if(!val.success){
+    if (!val.success) {
       return null;
     }
-    if(!val.data){
+    if (!val.data) {
       return null
     }
-    const {token} = JSON.parse(val.data)
-    return token; 
+    const { token } = JSON.parse(val.data)
+    return token;
   }
 
 
@@ -62,7 +62,7 @@ class TV360 extends BaseProvider {
     client.clearClient();
   }
 
- 
+
   async checkTokenRequest() {
     const token = await this.getRedisToken();
     const headers = {
@@ -105,16 +105,16 @@ class TV360 extends BaseProvider {
     };
 
     return await axios.post(LOGIN_URL, body);
-   
+
   }
-  async renewToken(){
+  async renewToken() {
     let res = null;
     let i = 0;
     while (i <= NUMBER_OF_REQUEST_RETRIES) {
       if (i == NUMBER_OF_REQUEST_RETRIES) return false;
       try {
         res = await this.getTokenRequest();
-        if(res.data.errorCode !== 200){
+        if (res.data.errorCode !== 200) {
           throw new Error("Login failed")
         }
         await this.setRedisToken(res.data.data.accessToken)
@@ -129,30 +129,30 @@ class TV360 extends BaseProvider {
   }
 
 
-  async getLink(channelId){
+  async getLink(channelId) {
     let res;
     let i = 0;
-    while(i <= NUMBER_OF_REQUEST_RETRIES){
-      if (i == NUMBER_OF_REQUEST_RETRIES){
+    while (i <= NUMBER_OF_REQUEST_RETRIES) {
+      if (i == NUMBER_OF_REQUEST_RETRIES) {
         return null;
       }
-      try{
+      try {
         res = await this.getM3u8Request(channelId);
         console.log(res.data)
-        if(res.data.errorCode != 200){
-            const isRenewed = await this.renewToken();
-            if(!isRenewed) 
-              return null;
-            throw new Error("Invalid token")
+        if (res.data.errorCode != 200) {
+          const isRenewed = await this.renewToken();
+          if (!isRenewed)
+            return null;
+          throw new Error("Invalid token")
         }
         return res.data.data.urlStreaming;
-      }catch(e){
+      } catch (e) {
         console.log(e);
         i++;
       }
     }
     return null;
-    
+
   }
 
 
@@ -183,7 +183,7 @@ class TV360 extends BaseProvider {
       headers: headers,
     };
     return await axios.get(url, { headers: headers, });
-   
+
   }
 }
 
