@@ -1,0 +1,5 @@
+function getToken() {
+  return `eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMzU1ODg4NDMiLCJ1c2VySWQiOjIzNTU4ODg0MywicHJvZmlsZUlkIjoyMzU4NTg4NjQsImR2aSI6NTcxMzcyNzc0LCJjb250ZW50RmlsdGVyIjoiMTAwIiwiZ25hbWUiOiIiLCJvc1R5cGUiOiJBTkRST0lEIiwiaWF0IjoxNzI1NzAyNjIzLCJleHAiOjE3MjgyOTQ2MjN9.yxlUoV4Xg6bfow97nmk3vb1ueClfY8w9i78GviWKL4I-0ntlbBwniy9ecZd3gDGcC1FqXxFnezR1jALAdI3_ww`;
+}
+
+module.exports.getToken = getToken;
