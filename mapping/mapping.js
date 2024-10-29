@@ -321,7 +321,7 @@ const channelMapping = {
         "TV360": "94"
     },
     "an_vien_tv": {
-        "TV360": "15"
+        "TV360": "151"
     },
     "tv360_1": {
         "TV360": "2554"
