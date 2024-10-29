@@ -116,7 +116,7 @@ const channelMapping = {
     "dong_nai_1": {
         "TV360": "53"
     },
-    "dong_nai_1": {
+    "dong_nai_2": {
         "TV360": "255"
     },
     "TH_DT_1": {
